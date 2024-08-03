@@ -18,7 +18,16 @@ const getStyleLoaders = (pre) => {
         },
       },
     },
-    pre,
+    pre === 'less-loader' ? {
+      loader: pre,
+      options: {
+        lessOptions: {
+          javascriptEnabled: true
+        },
+      }
+    }: {
+      loader: pre,
+    },
   ].filter(Boolean);
 };
 
