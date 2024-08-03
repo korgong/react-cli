@@ -133,7 +133,7 @@ module.exports = {
     !isProduction && new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
   mode: isProduction ? "production" : "development",
-  devtool: isProduction ? "source-map" : "cheap-module-source-map",
+  devtool: isProduction ? "source-map" : "eval-source-map",
   optimization: {
     splitChunks: {
       chunks: "all",
