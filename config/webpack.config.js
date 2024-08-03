@@ -47,9 +47,9 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: isProduction ? path.resolve(__dirname, "../dist") : undefined,
-    filename: isProduction ? "static/js/[name].[contenthash:10].js" : "static/js/[name].js",
-    chunkFilename: isProduction ? "static/js/[name].[contenthash:10].chunk.js" : "static/js/[name].chunk.js",
-    assetModuleFilename: "static/media/[hash:10][ext][query]",
+    filename: isProduction ? "static/js/[name].[contenthash:6].js" : "static/js/[name].js",
+    chunkFilename: isProduction ? "static/js/[name].chunk.[contenthash:6].js" : "static/js/[name].chunk.js",
+    assetModuleFilename: "static/media/[hash:6][ext][query]",
     clean: true,
   },
   module: {
@@ -114,8 +114,8 @@ module.exports = {
     }),
     isProduction &&
       new MiniCssExtractPlugin({
-        filename: "static/css/[name].[contenthash:10].css",
-        chunkFilename: "static/css/[name].[contenthash:10].chunk.css",
+        filename: "static/css/[name].[contenthash:6].css",
+        chunkFilename: "static/css/[name].chunk.[contenthash:6].css",
       }),
     isProduction &&
       new CopyPlugin({
@@ -141,19 +141,19 @@ module.exports = {
         // react react-dom react-router-dom 一起打包成一个js文件
         react: {
           test: /[\\/]node_modules[\\/]react(.*)?[\\/]/,
-          name: "chunk-react",
+          name: "libs-chunk-react",
           priority: 40,
         },
         // antd 单独打包
         antd: {
           test: /[\\/]node_modules[\\/]antd[\\/]/,
-          name: "chunk-antd",
+          name: "libs-chunk-antd",
           priority: 30,
         },
         // 剩下node_modules单独打包
         libs: {
           test: /[\\/]node_modules[\\/]/,
-          name: "chunk-libs",
+          name: "libs-chunk-other",
           priority: 20,
         },
       },
