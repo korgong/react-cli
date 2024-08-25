@@ -54,6 +54,27 @@ module.exports = {
   },
   module: {
     rules: [
+      // 处理ts
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true
+        }
+      },
+      // 处理js
+      {
+        test: /\.jsx?$/,
+        include: path.resolve(__dirname, "../src"),
+        loader: "babel-loader",
+        options: {
+          cacheDirectory: true,
+          cacheCompression: false,
+          plugins: [
+            !isProduction && "react-refresh/babel", // 激活js的HMR
+          ].filter(Boolean),
+        },
+      },
       // 处理css
       {
         test: /\.css$/,
@@ -85,19 +106,6 @@ module.exports = {
       {
         test: /\.(woff2?|ttf)$/,
         type: "asset/resource",
-      },
-      // 处理js
-      {
-        test: /\.jsx?$/,
-        include: path.resolve(__dirname, "../src"),
-        loader: "babel-loader",
-        options: {
-          cacheDirectory: true,
-          cacheCompression: false,
-          plugins: [
-            !isProduction && "react-refresh/babel", // 激活js的HMR
-          ].filter(Boolean),
-        },
       },
     ],
   },
@@ -132,6 +140,7 @@ module.exports = {
       }),
     !isProduction && new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
+  // 默认生产模式已经开启了：html 压缩和 js 压缩
   mode: isProduction ? "production" : "development",
   devtool: isProduction ? "source-map" : "eval-source-map",
   optimization: {
@@ -198,7 +207,7 @@ module.exports = {
   // webpack解析模块加载选项
   resolve: {
     // 自动补全文件扩展名
-    extensions: [".jsx", ".js", ".json"],
+    extensions: [".jsx", ".js", ".json", '.ts', '.tsx'],
   },
   devServer: {
     host: "localhost",

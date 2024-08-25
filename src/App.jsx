@@ -6,6 +6,7 @@ import { Button } from "antd";
 
 const Home = lazy(() => import(/* webpackChunkName: 'home' */ "./pages/Home"));
 const About = lazy(() => import(/* webpackChunkName: 'about' */ "./pages/About"));
+const TsxPage = lazy(() => import(/* webpackChunkName: 'about' */ "./pages/TsxPage"));
 
 function App() {
   return (
@@ -19,11 +20,15 @@ function App() {
         <li>
           <Link to="/about">About</Link>
         </li>
+        <li>
+          <Link to="/tsx">Tsx page</Link>
+        </li>
       </ul>
       <Suspense fallback={<div>loading...</div>}>
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/tsx" element={<TsxPage />} />
         </Routes>
       </Suspense>
     </div>
